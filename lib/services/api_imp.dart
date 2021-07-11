@@ -24,6 +24,22 @@ class ApiImp {
     return _generateResponse(response);
   }
 
+  Future<List<dynamic>> getPaginatedBreedsByNmae(int limt, int page,
+      {String value}) async {
+    var response = await get(
+        "https://api.thedogapi.com/v1/breeds/search?name=$value&limit=$limt&page=$page");
+    //await get("https://api.thecatapi.com/v1/breeds/search?limit=$limt&page=$page");
+    print(json.decode(response.body));
+    return _generateResponse(response);
+  }
+
+  Future<List<dynamic>> getBreedDetails(dynamic id) async {
+    var response =
+        await get("https://api.thedogapi.com/v1/images/search?breed_id=$id");
+    print(json.decode(response.body));
+    return _generateResponse(response);
+  }
+
   Future<Response> get(url) async {
     url = '$url';
     return _httpClient.get(url);
